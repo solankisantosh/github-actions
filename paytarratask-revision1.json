@@ -39,7 +39,6 @@
     "executionRoleArn": "arn:aws:iam::738202071526:role/paytarra-execution-task",
     "networkMode": "awsvpc",
     "volumes": [],
-    "status": "ACTIVE",
     "placementConstraints": [],
     "requiresCompatibilities": [
         "FARGATE"

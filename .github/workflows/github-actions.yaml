@@ -54,9 +54,7 @@ jobs:
     - name: Download task definition
       id: download-task
       run: |
-        aws ecs describe-task-definition \
-          --task-definition ${{ env.ECS_SERVICE }} \
-          --query taskDefinition > task-definition.json
+        aws ecs describe-task-definition --task-definition ${{ env.ECS_TASK_DEFINITION }} --query taskDefinition > task-definition.json
 
           echo "::set-output name=revision::$(($(cat task-definition.json | jq .revision) - 1))"
 
@@ -76,8 +74,9 @@ jobs:
         cluster: ${{ env.ECS_CLUSTER }}
         wait-for-service-stability: true
 
-   - name: De-register (latest-1) revision
-     if: ${{ steps.download-task.outputs.revision > 0 }}
-     run: |
-       aws ecs deregister-task-definition \
-         --task-definition  ${{ env.ECS_SERVICE }}:${{ steps.download-task.outputs.revision }}
+    - name: De-register (latest-1) revision
+      if: ${{ steps.download-task.outputs.revision > 0 }}
+      run: |
+        aws ecs deregister-task-definition \
+        --task-definition ${{ env.ECS_SERVICE }}:${{ steps.download-task.outputs.revision }}
+

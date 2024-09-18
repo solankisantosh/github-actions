@@ -1,7 +1,7 @@
 {
     "containerDefinitions": [
         {
-            "name": "paytarrcontainer",
+            "name": "github-actions-container",
             "image": "738202071526.dkr.ecr.ap-south-1.amazonaws.com/github_action_test:latest",
             "cpu": 0,
             "portMappings": [
@@ -22,7 +22,7 @@
             "logConfiguration": {
                 "logDriver": "awslogs",
                 "options": {
-                    "awslogs-group": "/ecs/paytarratask",
+                    "awslogs-group": "/ecs/Github-actions-new-task",
                     "mode": "non-blocking",
                     "awslogs-create-group": "true",
                     "max-buffer-size": "25m",
@@ -34,12 +34,16 @@
             "systemControls": []
         }
     ],
-    "family": "paytarratask",
-    "taskRoleArn": "arn:aws:iam::738202071526:role/paytarra-execution-task",
-    "executionRoleArn": "arn:aws:iam::738202071526:role/paytarra-execution-task",
+    "family": "Github-actions-new-task",
+    "taskRoleArn": "arn:aws:iam::738202071526:role/ECSTaskDefinationExecuteRole",
+    "executionRoleArn": "arn:aws:iam::738202071526:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
     "volumes": [],
     "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
     "requiresCompatibilities": [
         "FARGATE"
     ],
